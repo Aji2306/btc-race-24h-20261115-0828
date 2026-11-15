@@ -49,15 +49,15 @@ await runBars({
       }
       const dropBps = ((high - close) * 10000n) / high;
 
-      // Check that current bar is bouncing off the 10-bar low
+      // Check that current bar is bouncing off the 10-bar low (stricter: bounce >= 50 bps)
       let low10 = closes[closes.length - 1];
       for (let i = closes.length - 10; i < closes.length; i++) {
         if (closes[i] < low10) low10 = closes[i];
       }
       const bounceBps = ((close - low10) * 10000n) / low10;
 
-      // Buy on dip between 3.0% and 5.5%, showing bounce >= 25 bps off 10-bar low
-      if (dropBps >= 300n && dropBps <= 550n && bounceBps >= 25n) {
+      // Buy on dip between 3.0% and 5.5%, bounce >= 50 bps
+      if (dropBps >= 300n && dropBps <= 550n && bounceBps >= 50n) {
         const cashToUse = (state.cash * 95n) / 100n;
         const minNotional = 1_000_000n; // $1
         if (cashToUse >= minNotional && state.weightRoom('CBBTC') >= minNotional) {
