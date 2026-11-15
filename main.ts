@@ -30,8 +30,8 @@ await runBars({
       const pnlBps = ((close - entryPrice) * 10000n) / entryPrice;
       const barsHeld = state.seq - entryBarSeq;
 
-      // Take profit at +260 bps, stop loss at -80 bps, or timeout after 50 bars
-      if (pnlBps >= 260n || pnlBps <= -80n || barsHeld >= 50) {
+      // Take profit at +400 bps, stop loss at -80 bps, or timeout after 60 bars
+      if (pnlBps >= 400n || pnlBps <= -80n || barsHeld >= 60) {
         orders.push({
           side: 'sell',
           symbol: 'CBBTC',
